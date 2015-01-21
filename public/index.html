@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Me Who Health</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <script src="vendor/angular.js"></script>
+  <script src="js/GameCtrl.js"></script>
+  <script src="js/app.js"></script>
+  <!-- <script src="js/controllers/HeaderCtrl.js"></script> -->
+</head>
+
+<body ng-app="facesApp" ng-controller="GameCtrl">
+
+  <body>
+    <div class="container">
+    	<h1>Faces Changing</h1>
+    	<div ng-show="usersLeft">
+    		<div style="margin: 1em 0">
+        	<img ng-src="{{people[index].pictureUrl}}" alt="">
+	      </div>
+	      <input ng-model="name" type="text">
+
+	      <p>
+          {{message}}
+	      </p>
+	      <!-- <ul>
+	      	<li ng-repeat="person in people">
+	      		{{person.name}}
+	      		{{person.pictureUrl}}
+	      		{{person.complete}}
+	      	</li>
+	      </ul> -->
+    	</div>
+    	<div ng-show="!usersLeft">
+    		Game won!
+    	</div>
+    	<div>
+    		<h1>Finished Users</h1>
+    		<div ng-repeat="person in finished">
+    			{{person.name}}
+    			<div style="margin: 1em 0">
+        		<img ng-src="{{person.pictureUrl}}" alt="">
+	      	</div>
+    		</div>
+    	</div>
+    	
+    </div>
+  </body>
+</html>
