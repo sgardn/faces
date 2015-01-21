@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '/public/'));
 
 app.get("*", function(req, res){
 	console.log("requesting someting else");
-	console.log(req);
+	console.log(req.params);
 });
 
 var port = process.env.PORT || 5000;
