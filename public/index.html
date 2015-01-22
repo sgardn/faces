@@ -15,37 +15,50 @@
 
   <body>
     <div class="container">
-    	<h1>Faces Changing</h1>
-    	<div ng-show="usersLeft">
-    		<div style="margin: 1em 0">
-        	<img ng-src="{{people[index].pictureUrl}}" alt="">
-	      </div>
-	      <input ng-model="name" type="text">
-
-	      <p>
-          {{message}}
-	      </p>
-	      <!-- <ul>
-	      	<li ng-repeat="person in people">
-	      		{{person.name}}
-	      		{{person.pictureUrl}}
-	      		{{person.complete}}
-	      	</li>
-	      </ul> -->
-    	</div>
-    	<div ng-show="!usersLeft">
-    		Game won!
-    	</div>
-    	<div>
-    		<h1>Finished Users</h1>
-    		<div ng-repeat="person in finished">
-    			{{person.name}}
-    			<div style="margin: 1em 0">
-        		<img ng-src="{{person.pictureUrl}}" alt="">
-	      	</div>
+    	<h1 class="text-center">Faces</h1>
+    	<div class="row-fluid">
+    		<div class="col-sm-6">
+					<h4 class="text-center">Guess who?</h4>
+    			<p>Score: {{score}}</p>
+		    	<div ng-show="usersLeft">
+		    		<div style="margin: 1em 0; min-height: 15em">
+		        	<img ng-src="{{people[index].pictureUrl}}" alt="" style="max-width:350px">
+			      </div>
+			      <input ng-model="name" type="text">
+						<button ng-click="useHint()">
+							Use Hint
+						</button>
+						<p>
+							Hint: {{hint}}
+						</p>
+			      <p style="min-height: 2em">
+		          {{message}}
+			      </p>
+			      <ul>
+			      	<li ng-repeat="person in people">
+			      		{{person.name}}
+			      		<!-- {{person.pictureUrl}} -->
+			      		{{person.complete}}
+			      	</li>
+			      </ul>
+		    	</div>
     		</div>
-    	</div>
-    	
+	    	
+	    	<div class="col-sm-6">
+		    	<div class="finishedUsers">
+		    		<h4 class="text-center">Completed</h4>
+		    		<p ng-show="!usersLeft">
+			    		Game won!
+			    	</p>
+		    		<div ng-repeat="person in finished">
+		    			{{person.name}}
+		    			<!-- <div style="margin: 1em 0"> -->
+		        		<!-- <img ng-src="{{person.pictureUrl}}" alt=""> -->
+			      	<!-- </div> -->
+		    		</div>
+		    	</div>
+	    	</div>
+			</div>    	
     </div>
   </body>
 </html>
