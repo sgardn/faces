@@ -1,10 +1,11 @@
 var express = require("express");
 var app = express();
+app.set("view engine", "jade");
 
-/* serves main page */
 app.get("/", function(req, res) {
 	console.log("requesting index");
-	res.sendFile(__dirname + '/public/index.html');
+    res.render("index");
+    // res.sendFile(__dirname + '/public/index.html');
 });
 
 // app.post("/user/add", function(req, res) { 

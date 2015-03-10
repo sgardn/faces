@@ -1,11 +1,5 @@
 angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout) {
 
-	var NUM_PEOPLE = 5;
-	$scope.usersLeft = NUM_PEOPLE;
-	$scope.finished = [];
-	$scope.score = 0;
-	hint = 0;
-
 	$scope.people = [
 						{ name : "Neo", pictureUrl : "images/neo.gif", complete : false },
 						{ name : "Trinity", pictureUrl : "images/trinity.gif", complete : false },
@@ -14,7 +8,21 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 						{ name : "Agent Smith", pictureUrl : "images/agent\ smith.gif", complete : false },
 					];
 
+	// for two named people...
+	// $scope.people = [
+	// 					{ firstName : "Thomas", lastName : "Anderson", pictureUrl : "images/neo.gif", complete : false },
+	// 					{ firstName : "The", lastName : "Trinity", pictureUrl : "images/trinity.gif", complete : false },
+	// 					{ firstName : "Mr", lastName : "Cypher", pictureUrl : "images/cypher.gif", complete : false },
+	// 					{ firstName : "Lord", lastName : "Morpheus", pictureUrl : "images/morpheus.gif", complete : false },
+	// 					{ firstName : "Agent" lastName : "Smith", pictureUrl : "images/agent\ smith.gif", complete : false },
+	// 				];
+
+	var NUM_PEOPLE = $scope.people.length;
+	$scope.usersLeft = NUM_PEOPLE;
+	$scope.finished = [];
+	$scope.score = 0;
 	$scope.index = Math.floor(Math.random() * NUM_PEOPLE);
+	hint = 0;
 
 	$scope.currentUser = function () {
 		return $scope.people[$scope.index];
@@ -26,14 +34,17 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 	}
 
 	$scope.useHint = function() {
-		if(hint < 2){
+		if(hint < 3){
 			$scope.score--;
 			hint++;
 			$scope.hint = $scope.currentUser().name.substring(0, hint);
 		} else {
 			alert("No more hints for this name!");
 		}
-		console.log(hint);
+	}
+
+	$scope.skip = function() {
+		$scope.index = ($scope.index + 1) % $scope.usersLeft;
 	}
 
 	function nextUser () {
