@@ -1,17 +1,19 @@
 var gulp = require('gulp'); 
+var watchLess = require('gulp-watch-less');
+var less = require('gulp-less');
 
-gulp.task('scripts', function() {
-    // return gulp.src('js/*.js')
-    // return gulp.src('bower_components/angular/angular.js')
-    gulp.src('bower_components/angular/angular.js')
-        .pipe(gulp.dest('public/vendor/'));
+console.log("gulping");
 
-    // gulp.src('node_modules/angular-load/angular-load.js')
-    //     .pipe(gulp.dest('public/vendor'));
-
-    // gulp.src('node_modules/underscore/underscore.js')
-    //     .pipe(gulp.dest('public/vendor'));
-
+gulp.task('less-watch', function () {
+    return gulp.src('public/less/file.less')
+        .pipe(watchLess('public/less/file.less'))
+        .pipe(less())
+        .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('default', ['scripts']);
+gulp.task('scripts', function() {
+    gulp.src('bower_components/angular/angular.js')
+        .pipe(gulp.dest('public/vendor/'));
+});
+
+gulp.task('default', ['scripts', 'less-watch']);
