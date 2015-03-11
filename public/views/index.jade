@@ -1,4 +1,4 @@
-!!! 5
+doctype html
 head
   meta(charset='UTF-8')
   title Me Who Health
@@ -11,7 +11,7 @@ head
       .container
         h1.text-center Faces
         .row-fluid
-          
+
           .col-sm-6
             h4.text-center Guess who?
             p Score: 
@@ -28,11 +28,11 @@ head
                   | {{person.name}}
                   | {{person.pictureUrl}}
                   | {{person.complete}}
-          
+
           .col-sm-6
             .finishedUsers
               h4.text-center Completed
           p(ng-show='!usersLeft')
-           | Game won!
+            | Game won!
           div(ng-repeat='person in finished')
             | {{person.name}}
