@@ -45,6 +45,9 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
   $scope.index = nextIndex();
 
   $scope.skip = function() {
+    $scope.name = $scope.hint = "";
+    hint = 0;
+    flash("skipped");
     $scope.index = nextIndex();
   }
 
