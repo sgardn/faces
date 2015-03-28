@@ -9,5 +9,11 @@ Let's learn some faces, shall we?
 ----
 TODO
 ----
-separate into first and last name components
+add a timer? keep track of points using that as well
+log keystrokes? measure accuracy? 
 write unit tests for the controller
+style the bastard
+swap out flash messages for something sexy
+supply actual images from MYH
+figure out how to host it within myh airspace
+

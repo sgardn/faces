@@ -4,6 +4,7 @@ head
   title Me Who Health
   link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
   //- todo -- replace with our own bootstrap
+  //- yayyy offline mode...
   script(src='vendor/angular.js')
   script(src='js/GameCtrl.js')
   script(src='js/app.js')
@@ -14,26 +15,39 @@ head
       .container
         h1.u-text-center Faces to Guess!
         .row-fluid
-
           .col-sm-6
-            p.u-text-center Guess who?
             p Score: 
               | {{score}}
             div(ng-show='peopleLeft.length')
               .image-wrap
                 img(ng-src='{{peopleLeft[index].pictureUrl}}', alt='', style='max-width:350px')
-              input(ng-model='name', type='text')
-              button(ng-click='useHint()') 
-                | Use Hint
-              button(ng-click='skip()')
-                | Skip
-              p Hint: {{hint}}
-              p(style='min-height: 2em') {{message}}
-              ul
-                li(ng-repeat='person in people')
-                  | {{person.name}}
-                  | {{person.pictureUrl}}
-                  | {{person.complete}}
+              .control-wrap.well
+                input(ng-model='nameMatcher', type='text')
+                button(ng-click="useHint('first')")
+                  | First name hint
+                button(ng-click="useHint('last')")
+                  | Last name hint
+                button(ng-click='skip()')
+                  | Skip
+                
+                p(ng-class="{correct: nameParts.first}") First name: 
+                  span(ng-hide='nameParts.first')
+                    | {{hint.first}}
+                  span(ng-show='nameParts.first')
+                    | {{peopleLeft[index].firstName}}
+                p(ng-class="{correct: nameParts.last}") Last name: 
+                  span(ng-hide='nameParts.last')
+                    | {{hint.last}}
+                  span(ng-show='nameParts.last')
+                    | {{peopleLeft[index].lastName}}
+
+              p.status
+                | {{message}}
+              //- ul
+              //-   li(ng-repeat='person in peopleLeft')
+              //-     | {{person.firstName}}
+              //-     | {{person.lastName}}
+              //-     | {{person.pictureUrl}}
 
           .col-sm-6
             .finishedUsers
@@ -41,4 +55,4 @@ head
           p(ng-show='!peopleLeft.length')
             | Game won!
           div(ng-repeat='person in finished')
-            | {{person.name}}
+            | {{person.firstName}} {{person.lastName}}

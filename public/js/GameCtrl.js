@@ -1,31 +1,40 @@
 angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout) {
 
-  $scope.people = [
-            { name : "Neo", pictureUrl : "images/neo.gif", complete : false },
-            { name : "Trinity", pictureUrl : "images/trinity.gif", complete : false },
-            { name : "Cypher", pictureUrl : "images/cypher.gif", complete : false },
-            { name : "Morpheus", pictureUrl : "images/morpheus.gif", complete : false },
-            { name : "Agent Smith", pictureUrl : "images/agent\ smith.gif", complete : false },
-          ];
-
-  // for two named people...
-  // $scope.people = [
-  //          { firstName : "Thomas", lastName : "Anderson", pictureUrl : "images/neo.gif", complete : false },
-  //          { firstName : "The", lastName : "Trinity", pictureUrl : "images/trinity.gif", complete : false },
-  //          { firstName : "Mr", lastName : "Cypher", pictureUrl : "images/cypher.gif", complete : false },
-  //          { firstName : "Lord", lastName : "Morpheus", pictureUrl : "images/morpheus.gif", complete : false },
-  //          { firstName : "Agent" lastName : "Smith", pictureUrl : "images/agent\ smith.gif", complete : false },
-  //        ];
+  $scope.peopleLeft = [
+           { firstName : "Thomas", lastName : "Anderson", pictureUrl : "images/neo.gif" },
+           { firstName : "The", lastName : "Trinity", pictureUrl : "images/trinity.gif" },
+           { firstName : "Mr", lastName : "Cypher", pictureUrl : "images/cypher.gif" },
+           { firstName : "Lord", lastName : "Morpheus", pictureUrl : "images/morpheus.gif" },
+           { firstName : "Agent", lastName : "Smith", pictureUrl : "images/agent\ smith.gif" }
+         ];
 
   $scope.finished = [];
   $scope.score = 0;
-  hint = 0;
 
-  $scope.peopleLeft = angular.copy($scope.people);
+  hintLength = {
+    first:0,
+    last:0
+  }
 
-  // ugly, but functional
+  $scope.hint = {
+    first:"?",
+    last:"?"
+  }
+  
+  $scope.nameParts = {
+    first: false,
+    last: false
+  }
+
+  function clearData() {
+    $scope.nameMatcher = "";
+    $scope.hint.first = $scope.hint.last = "?";
+    hintLength.first = hintLength.last = 0;
+    $scope.nameParts.first = $scope.nameParts.last = false;
+  }
+
   // should this return the index, or update scope.index?
-  function nextIndex () {
+  function nextIndex() {
     if($scope.peopleLeft.length){
       if($scope.peopleLeft.length == 1){
         flash("last person!");
@@ -45,13 +54,12 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
   $scope.index = nextIndex();
 
   $scope.skip = function() {
-    $scope.name = $scope.hint = "";
-    hint = 0;
+    clearData();
     flash("skipped");
     $scope.index = nextIndex();
   }
 
-  $scope.currentUser = function () {
+  $scope.currentUser = function() {
     return $scope.peopleLeft[$scope.index];
   }
   
@@ -61,42 +69,48 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
     $scope.index = nextIndex();
   }
 
-  $scope.useHint = function() {
-    if(hint < 3){
+  $scope.useHint = function(type) {
+    if(hintLength[type] < 3){
+      console.log(hintLength[type])
       $scope.score--;
-      hint++;
-      $scope.hint = $scope.currentUser().name.substring(0, hint);
+      hintLength[type]++;
+      $scope.hint[type] = $scope.currentUser()[type+"Name"].substring(0, hintLength[type]);
     } else {
       flash("no more hints!");
     }
   }
 
-  // we consume our array in order, to prevent hitting a user we've already seen
-  function nextUser () {
+  function nextUser() {
     shiftCurrentUser();
+    clearData();
     if($scope.peopleLeft.length){
-      $scope.name = $scope.hint = "";
-      hint = 0;
       flash("success");
     }
   }
 
-  $scope.$watch("name", function (newValue, oldValue) {
-    if(angular.lowercase(newValue) == angular.lowercase($scope.currentUser().name)){
+  function foundName(type) {
+    $scope.nameParts[type] = true;
+    if($scope.nameParts.first && $scope.nameParts.last){
       $scope.score += 5;
       nextUser();
+    } else {
+      $scope.nameMatcher = "";
+    }
+  }
+
+  $scope.$watch("nameMatcher", function(newValue, oldValue) {
+    if(angular.lowercase(newValue) == angular.lowercase($scope.currentUser().firstName)){
+      foundName("first");
+    }
+    if(angular.lowercase(newValue) == angular.lowercase($scope.currentUser().lastName)){
+      foundName("last");
     }
   });
 
-  flash = function (message) {
+  flash = function(message) {
     $scope.message = message;
     $timeout(function() {
       $scope.message = "";
     }, 1000);
   }
-
-  // initialize = function () {
-  // }
-
-  // initialize();
 });
