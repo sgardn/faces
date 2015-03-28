@@ -19,11 +19,14 @@ head
             p.u-text-center Guess who?
             p Score: 
               | {{score}}
-            div(ng-show='usersLeft')
+            div(ng-show='peopleLeft.length')
               .image-wrap
-                img(ng-src='{{people[index].pictureUrl}}', alt='', style='max-width:350px')
+                img(ng-src='{{peopleLeft[index].pictureUrl}}', alt='', style='max-width:350px')
               input(ng-model='name', type='text')
-              button(ng-click='useHint()') Use Hint
+              button(ng-click='useHint()') 
+                | Use Hint
+              button(ng-click='skip()')
+                | Skip
               p Hint: {{hint}}
               p(style='min-height: 2em') {{message}}
               ul
@@ -35,7 +38,7 @@ head
           .col-sm-6
             .finishedUsers
               h4.u-text-center Completed
-          p(ng-show='!usersLeft')
+          p(ng-show='!peopleLeft.length')
             | Game won!
           div(ng-repeat='person in finished')
             | {{person.name}}
