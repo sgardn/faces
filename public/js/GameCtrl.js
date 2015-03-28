@@ -65,7 +65,9 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
   
   function shiftCurrentUser() {
     var mine = $scope.peopleLeft.splice($scope.index, 1);
-    $scope.finished.unshift(mine[0]);
+    person = mine[0];
+    person.hintsUsed = hintLength.first + hintLength.last;
+    $scope.finished.unshift(person);
     $scope.index = nextIndex();
   }
 

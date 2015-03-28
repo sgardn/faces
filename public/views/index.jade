@@ -55,4 +55,8 @@ head
           p(ng-show='!peopleLeft.length')
             | Game won!
           div(ng-repeat='person in finished')
-            | {{person.firstName}} {{person.lastName}}
+            p
+              | {{person.firstName}} {{person.lastName}}
+            p
+              | Hints used: {{person.hintsUsed}}
+
