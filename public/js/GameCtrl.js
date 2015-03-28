@@ -20,7 +20,7 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
     first:"?",
     last:"?"
   }
-  
+
   $scope.nameParts = {
     first: false,
     last: false
@@ -106,10 +106,13 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
       foundName("last");
     }
   });
-
+  var timeoutPromise;
   flash = function(message) {
+    if(timeoutPromise){
+      $timeout.cancel(timeoutPromise)
+    }
     $scope.message = message;
-    $timeout(function() {
+    timeoutPromise = $timeout(function() {
       $scope.message = "";
     }, 1000);
   }

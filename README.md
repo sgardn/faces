@@ -15,5 +15,5 @@ write unit tests for the controller
 style the bastard
 swap out flash messages for something sexy
 supply actual images from MYH
-figure out how to host it within myh airspace
+figure out how to host it within myh airspace (task for dev ops?)
 
