@@ -1,4 +1,19 @@
 div {
-  color: #99ccff;
   font-size: 12px;
+}
+h1 {
+  color: #99ccff;
+  font-size: 24px;
+}
+.image-wrap {
+  margin: 1rem;
+  min-height: 200px;
+}
+.image-wrap img {
+  max-height: 250px;
+  max-width: 300px;
+}
+/* utility classes */
+.u-text-center {
+  text-align: center;
 }

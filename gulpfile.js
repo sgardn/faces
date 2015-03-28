@@ -5,6 +5,7 @@ var less = require('gulp-less');
 console.log("gulping");
 
 gulp.task('less-watch', function () {
+    console.log('less-watch PROCCED')
     return gulp.src('public/less/file.less')
         .pipe(watchLess('public/less/file.less'))
         .pipe(less())

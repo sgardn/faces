@@ -39,14 +39,17 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 			hint++;
 			$scope.hint = $scope.currentUser().name.substring(0, hint);
 		} else {
-			alert("No more hints for this name!");
+			flash("no more hints!");
 		}
 	}
 
+	// this should skip randomly, which means we should also consume 
+	// our array so we have a single source of truth
 	$scope.skip = function() {
 		$scope.index = ($scope.index + 1) % $scope.usersLeft;
 	}
 
+	// we consume our array in order, to prevent hitting a user we've already seen
 	function nextUser () {
 		shiftCurrentUser();
 		$scope.usersLeft--;
@@ -55,7 +58,7 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 			$scope.index = ($scope.index + 1) % NUM_PEOPLE;
 			$scope.name = $scope.hint = "";
 			hint = 0;
-			flash();
+			flash("success");
 		}
 	}
 
@@ -66,15 +69,15 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 		}
 	});
 
-	flash = function () {
-		$scope.message = "Success";
+	flash = function (message) {
+		$scope.message = message;
 		$timeout(function() {
 			$scope.message = "";
 		}, 1000);
 	}
 
-	initialize = function () {
-	}
+	// initialize = function () {
+	// }
 
-	initialize();
+	// initialize();
 });
