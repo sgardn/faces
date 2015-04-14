@@ -1,4 +1,8 @@
-@color: #99CCFF;
+$red : red;
+
+h1 {
+  font-size: 26px !important;
+}
 
 .image-wrap {
   margin: 1rem;
@@ -8,6 +12,7 @@
     max-width: 300px;
   }
 }
+
 .control-wrap {
   border: 1px solid gray;
   padding: 12px;
@@ -18,17 +23,10 @@
   color: green;
 }
 .status {
-    min-height: 2em;
+  min-height: 2em;
+  color: blue;
 }
-
 /* utility classes */
 .u-text-center {
   text-align: center;
-}
-
-/* typography */
-
-/* reset */
-p {
-    /*margin: .3rem 0 .7rem;*/
 }

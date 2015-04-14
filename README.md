@@ -6,14 +6,20 @@ Let's learn some faces, shall we?
 `npm start` to launch nodemon
 
 
-----
-TODO
-----
-add a timer? keep track of points using that as well
-log keystrokes? measure accuracy? 
-write unit tests for the controller
-style the bastard
-swap out flash messages for something sexy
-supply actual images from MYH
-figure out how to host it within myh airspace (task for dev ops?)
+# TODO
 
+#### DEV
+* install bootstrap via bower (no more airplane mode problems)
+
+#### TESTING
+* write unit tests for the controller
+* style the bastard
+
+#### MYH
+* supply actual images from MYH (use images uploaded to my S3 account)
+* figure out how to host it within myh airspace (ask dev ops?)
+
+#### Features
+* add a timer? keep track of points using that as well
+* log keystrokes? measure accuracy? 
+* swap out flash messages for something sexy
