@@ -1,7 +1,8 @@
 $red : red;
 
 h1 {
-  font-size: 26px !important;
+  font-size: 22px !important;
+  color: $red;
 }
 
 .image-wrap {
@@ -14,9 +15,7 @@ h1 {
 }
 
 .control-wrap {
-  border: 1px solid gray;
   padding: 12px;
-  box-shadow: inset 0 0 10px gray;
   border-radius: 6px;
 }
 .correct span {

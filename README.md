@@ -23,3 +23,6 @@ Let's learn some faces, shall we?
 * add a timer? keep track of points using that as well
 * log keystrokes? measure accuracy? 
 * swap out flash messages for something sexy
+
+#### Bugs
+* Figure out why gulp needs a double tap on the save command to get styles to show up in the browser
