@@ -4,27 +4,27 @@ app.set("views", "./public/views")
 app.set("view engine", "jade");
 
 app.get("/", function(req, res) {
-	console.log("requesting index");
-    res.render("index");
-    // res.sendFile(__dirname + '/public/index.html');
+  console.log("requesting index");
+  res.render("index");
+  // res.sendFile(__dirname + '/public/index.html');
 });
 
-// app.post("/user/add", function(req, res) { 
+// app.post("/user/add", function(req, res) {
 // 	/* some server side logic  */
 // 	res.send("OK");
 // });
 
 /* serves all the static files */
-// app.get(/^(.+)$/, function(req, res){ 
+// app.get(/^(.+)$/, function(req, res){
 // 	console.log('static file request : ' + req.params);
-// 	res.sendFile( __dirname + req.params[0]); 
+// 	res.sendFile( __dirname + req.params[0]);
 // });
 
 app.use(express.static(__dirname + '/public/'));
 
 app.get("*", function(req, res){
-	console.log("requesting someting else");
-	console.log(req.params);
+  console.log("requesting someting else");
+  console.log(req.params);
 });
 
 var port = process.env.PORT || 5000;
