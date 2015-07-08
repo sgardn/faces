@@ -1,0 +1,31 @@
+$screen-xs-max: 768px;
+$screen-sm-min: 769px;
+$screen-sm-max: 992px;
+$screen-md-min: 993px;
+$screen-md-max: 1200px;
+$screen-lg-min: 1201px;
+
+html {
+  font-size: 18px;
+  line-height: 1.111em;
+
+  @media only screen and (max-width: $screen-md-max) {
+    font-size: 16px;
+  }
+
+  @media only screen and (max-width: $screen-sm-max) {
+    font-size: 14px;
+  }
+
+  @media only screen and (max-width: $screen-xs-max) {
+    font-size: 12px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  // color: $text-color-default;
+  // font-family: $ff-header;
+  font-weight: normal;
+  line-height: 1.2em;
+  margin: 0;
+}

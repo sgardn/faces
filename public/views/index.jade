@@ -12,11 +12,12 @@ head
 
   body(ng-app='facesApp', ng-controller='GameCtrl')
     body
-      .container
+      .nav-bar
         h1.u-text-center Faces to Guess!
+      .container
         .row-fluid
           .col-sm-6
-            p Score: 
+            p Score:
               | {{score}}
             div(ng-show='peopleLeft.length')
               .image-wrap
@@ -29,13 +30,13 @@ head
                   | Last name hint
                 button(ng-click='skip()')
                   | Skip
-                
-                p(ng-class="{correct: nameParts.first}") First name: 
+
+                p(ng-class="{correct: nameParts.first}") First name:
                   span(ng-hide='nameParts.first')
                     | {{hint.first}}
                   span(ng-show='nameParts.first')
                     | {{peopleLeft[index].firstName}}
-                p(ng-class="{correct: nameParts.last}") Last name: 
+                p(ng-class="{correct: nameParts.last}") Last name:
                   span(ng-hide='nameParts.last')
                     | {{hint.last}}
                   span(ng-show='nameParts.last')

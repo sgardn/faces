@@ -1,7 +1,8 @@
-h1{font-size:22px!important;color:red}
+.correct span,h1{color:green}
+.nav-bar{height:6rem;background-color:orange;padding:1rem}
+h1{font-size:22px!important}
 .image-wrap{margin:1rem;min-height:200px}
 .image-wrap img{max-height:200px;max-width:300px}
 .control-wrap{padding:12px;border-radius:6px}
-.correct span{color:green}
 .status{min-height:2em;color:#00f}
 .u-text-center{text-align:center}
