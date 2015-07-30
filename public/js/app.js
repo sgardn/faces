@@ -1,1 +1,1 @@
-angular.module('facesApp', ['GameCtrl']);
+angular.module('facesApp', ['ngAnimate', 'GameCtrl']);

@@ -5,7 +5,7 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
            { firstName : "The", lastName : "Trinity", pictureUrl : "images/trinity.gif" },
            { firstName : "Mr", lastName : "Cypher", pictureUrl : "images/cypher.gif" },
            { firstName : "Lord", lastName : "Morpheus", pictureUrl : "images/morpheus.gif" },
-           { firstName : "Agent", lastName : "Smith", pictureUrl : "images/agent\ smith.gif" }
+           // { firstName : "Agent", lastName : "Smith", pictureUrl : "images/agent\ smith.gif" }
          ];
 
   $scope.finished = [];
@@ -33,11 +33,24 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
     $scope.nameParts.first = $scope.nameParts.last = false;
   }
 
-  // should this return the index, or update scope.index?
+  var timeoutPromise;
+  flash = function(message, messageClass, messageIconClass) {
+    $scope.flashClass = messageClass;
+    $scope.messageIconClass = messageIconClass;
+    if(timeoutPromise){
+      $timeout.cancel(timeoutPromise)
+    }
+    $scope.message = message;
+    $scope.showMessage = true;
+    timeoutPromise = $timeout(function() {
+      $scope.showMessage = false;
+    }, 1000);
+  }
+
+  // will always return a new user if possible
   function nextIndex() {
     if($scope.peopleLeft.length){
       if($scope.peopleLeft.length == 1){
-        flash("last person!");
         return 0;
       } else {
         var newVal = $scope.index;
@@ -46,23 +59,31 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
         }
         return newVal;
       }
-    } else {
-      return -1;
     }
+    // TODO -- DO WE NEED THIS?
+    // else {
+    //   return -1;
+    // }
   }
 
   $scope.index = nextIndex();
 
   $scope.skip = function() {
-    clearData();
-    flash("skipped");
-    $scope.index = nextIndex();
+    var next = nextIndex();
+    // last person!
+    if(next !== $scope.index){
+      $scope.index = next;
+      clearData();
+      flash("skipped!", "Flash--info", "icon-info-circle");
+    } else {
+      flash("last person!", "Flash--error", "icon-exclamation-triangle");
+    }
   }
 
   $scope.currentUser = function() {
     return $scope.peopleLeft[$scope.index];
   }
-  
+
   function shiftCurrentUser() {
     var mine = $scope.peopleLeft.splice($scope.index, 1);
     person = mine[0];
@@ -73,20 +94,24 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 
   $scope.useHint = function(type) {
     if(hintLength[type] < 3){
-      console.log(hintLength[type])
       $scope.score--;
       hintLength[type]++;
       $scope.hint[type] = $scope.currentUser()[type+"Name"].substring(0, hintLength[type]);
     } else {
-      flash("no more hints!");
+      flash("no more hints!", "Flash--error", "icon-exclamation-triangle");
     }
   }
 
   function nextUser() {
     shiftCurrentUser();
     clearData();
+
     if($scope.peopleLeft.length){
-      flash("success");
+      flash("correct!", "Flash--success", "icon-check-square");
+    } else {
+      unbindNameMatcher();
+      console.log($scope.peopleLeft)
+      flash("game won!", "Flash--success", "icon-check-square");
     }
   }
 
@@ -100,7 +125,7 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
     }
   }
 
-  $scope.$watch("nameMatcher", function(newValue, oldValue) {
+  var unbindNameMatcher = $scope.$watch("nameMatcher", function(newValue, oldValue) {
     if(angular.lowercase(newValue) == angular.lowercase($scope.currentUser().firstName)){
       foundName("first");
     }
@@ -108,14 +133,5 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
       foundName("last");
     }
   });
-  var timeoutPromise;
-  flash = function(message) {
-    if(timeoutPromise){
-      $timeout.cancel(timeoutPromise)
-    }
-    $scope.message = message;
-    timeoutPromise = $timeout(function() {
-      $scope.message = "";
-    }, 1000);
-  }
+
 });
