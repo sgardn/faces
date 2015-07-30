@@ -2,62 +2,78 @@ doctype html
 head
   meta(charset='UTF-8')
   title Me Who Health
+  link(rel='stylesheet', href='css/reset.css')
   link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
-  //- todo -- replace with our own bootstrap
-  //- yayyy offline mode...
-  script(src='vendor/angular.js')
+  //- script(src='vendor/angular.js')
+  //- script(src='vendor/angular-animate.js')
+  script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js")
+  script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js")
   script(src='js/GameCtrl.js')
   script(src='js/app.js')
-  link(rel='stylesheet', href='css/style.min.css')
 
+  //- trying out material design
+  //- link(rel="stylesheet" href="/mdl/material.min.css")
+  link(rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.blue_grey-light_blue.min.css")
+  script(src="/mdl/material.min.js")
+
+  link(rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons")
+  link(rel='stylesheet', href='css/mat-des-overrides.css')
+  script(src="https://use.fonticons.com/4233cf1e.js")
+  meta(name="viewport" content="width=device-width, initial-scale=1.0")
   body(ng-app='facesApp', ng-controller='GameCtrl')
     body
-      .nav-bar
-        h1.u-text-center Faces to Guess!
-      .container
-        .row-fluid
-          .col-sm-6
-            p Score:
-              | {{score}}
-            div(ng-show='peopleLeft.length')
-              .image-wrap
+      .container#game
+        .row
+          .col-sm-6.col-sm-offset-3
+            header
+              h3.u-text-center
+                | Faces to Guess!
+              span.score
+                | Score:
+                | {{score}}
+              p(ng-show='!peopleLeft.length')
+                | Game won!
+            .mdl-card.mdl-shadow--4dp.guess-card(ng-show="peopleLeft.length")
+              //- .mdl-card__media.mdl-card--expand
+              .mdl-card__title.mdl-card--expand
                 img(ng-src='{{peopleLeft[index].pictureUrl}}', alt='', style='max-width:350px')
-              .control-wrap.well
-                input(ng-model='nameMatcher', type='text')
-                button(ng-click="useHint('first')")
+                //- h2.mdl-card__title-text
+                  //- | Update
+              .mdl-card__supporting-text
+                span.hint-text(ng-class="{correct: nameParts.first}")
+                  | First name:&nbsp;
+                  span.hint-text.hint-text--hinted(ng-show='!nameParts.first')
+                    | {{hint.first}}
+                  span.hint-text.hint-text--correct(ng-show='nameParts.first')
+                    | {{peopleLeft[index].firstName}}
+                br
+                span.hint-text(ng-class="{correct: nameParts.last}")
+                  | Last name:&nbsp;
+                  span.hint-text.hint-text--hinted(ng-show='!nameParts.last')
+                    | {{hint.last}}
+                  span.hint-text.hint-text--correct(ng-show='nameParts.last')
+                    | {{peopleLeft[index].lastName}}
+              .mdl-card__actions.mdl-card--border
+                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click="useHint('first')")
                   | First name hint
-                button(ng-click="useHint('last')")
+                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click="useHint('last')")
                   | Last name hint
-                button(ng-click='skip()')
+                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='skip()')
                   | Skip
 
-                p(ng-class="{correct: nameParts.first}") First name:
-                  span(ng-hide='nameParts.first')
-                    | {{hint.first}}
-                  span(ng-show='nameParts.first')
-                    | {{peopleLeft[index].firstName}}
-                p(ng-class="{correct: nameParts.last}") Last name:
-                  span(ng-hide='nameParts.last')
-                    | {{hint.last}}
-                  span(ng-show='nameParts.last')
-                    | {{peopleLeft[index].lastName}}
+            div(ng-show='peopleLeft.length')
+              .mdl-textfield.mdl-js-textfield.guess-textfield
+                input.mdl-textfield__input(ng-model='nameMatcher', type='text' id='guess')
+                label.mdl-textfield__label(for='guess')
+                  | Enter your guess
 
-              p.status
-                | {{message}}
-              //- ul
-              //-   li(ng-repeat='person in peopleLeft')
-              //-     | {{person.firstName}}
-              //-     | {{person.lastName}}
-              //-     | {{person.pictureUrl}}
-
-          .col-sm-6
-            .finishedUsers
-              h4.u-text-center Completed
-          p(ng-show='!peopleLeft.length')
-            | Game won!
-          div(ng-repeat='person in finished')
-            p
-              | {{person.firstName}} {{person.lastName}}
-            p
-              | Hints used: {{person.hintsUsed}}
-
+            h5
+              | Completed
+            .completed-names
+              .completed-names__name(ng-repeat='person in finished')
+                span(class="how-many-{{person.hintsUsed}}")
+                  | {{person.firstName}} {{person.lastName}} ({{5 - person.hintsUsed}})
+      .Flash(ng-hide="!showMessage" class="{{flashClass}}")
+        i.icon(ng-class="messageIconClass")
+        span
+          | {{message}}

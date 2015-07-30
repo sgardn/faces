@@ -37,7 +37,6 @@ gulp.task('minify-css', function() {
     .pipe(rename({suffix: '.min'}))
     .pipe(minifyCSS({keepBreaks:true}))
     .pipe(gulp.dest('./public/css/'))
-    // .pipe(gulp.dest('./_build/css/'));
 });
 
 // SASS task, will run when any SCSS files change & BrowserSync - will auto-update browsers
@@ -73,7 +72,7 @@ gulp.task('default', ['browser-sync', 'sass', 'minify-css'], function() {
   });
   gulp.watch(['public/views/*.jade'], ['bs-reload']);
   gulp.watch(['public/js/*.js', 'public/js/**/*.js'], ['bs-reload']);
-  gulp.watch('public/scss/**/*.scss', ['sass', 'minify-css']);
+  gulp.watch('public/scss/**/*.scss', ['sass', 'minify-css', 'bs-reload']);
 });
 
 // BUGFIX: warning: possible EventEmitter memory leak detected - 11 listeners added
