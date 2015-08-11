@@ -2,25 +2,15 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 
   $scope.peopleLeft = [
            { firstName : "Thomas", lastName : "Anderson", pictureUrl : "images/neo.gif", firstHint : "", lastHint : "" },
-           // { firstName : "The", lastName : "Trinity", pictureUrl : "images/trinity.gif", firstHint : "", lastHint : ""  },
-           // { firstName : "Mr", lastName : "Cypher", pictureUrl : "images/cypher.gif", firstHint : "", lastHint : ""  },
-           // { firstName : "Lord", lastName : "Morpheus", pictureUrl : "images/morpheus.gif", firstHint : "", lastHint : ""  },
-           // { firstName : "Agent", lastName : "Smith", pictureUrl : "images/agent\ smith.gif", firstHint : "", lastHint : ""  }
+           { firstName : "The", lastName : "Trinity", pictureUrl : "images/trinity.gif", firstHint : "", lastHint : ""  },
+           { firstName : "Mr", lastName : "Cypher", pictureUrl : "images/cypher.gif", firstHint : "", lastHint : ""  },
+           { firstName : "Lord", lastName : "Morpheus", pictureUrl : "images/morpheus.gif", firstHint : "", lastHint : ""  },
+           { firstName : "Agent", lastName : "Smith", pictureUrl : "images/agent\ smith.gif", firstHint : "", lastHint : ""  }
          ];
 
   $scope.finished = [];
   $scope.score = 0;
-
-  hintLength = {
-    first:0,
-    last:0
-  }
-
-  $scope.hint = {
-    first:"?",
-    last:"?"
-  }
-
+  $scope.nameMatcher = "";
   $scope.nameParts = {
     first: false,
     last: false
@@ -28,8 +18,6 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 
   function clearData() {
     $scope.nameMatcher = "";
-    // $scope.hint.first = $scope.hint.last = "?";
-    // hintLength.first = hintLength.last = 0;
     $scope.nameParts.first = $scope.nameParts.last = false;
   }
 
@@ -85,25 +73,31 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
     }
   }
 
-  $scope.currentUser = function() {
+  currentUser = function() {
     return $scope.peopleLeft[$scope.index];
   }
 
   function shiftCurrentUser() {
     var mine = $scope.peopleLeft.splice($scope.index, 1);
     person = mine[0];
-    person.hintsUsed = hintLength.first + hintLength.last;
+    person.hintsUsed = person.firstHint.length + person.lastHint.length;
     $scope.finished.unshift(person);
     $scope.index = nextIndex();
   }
 
-  $scope.useHint = function(type) {
-    if(hintLength[type] < 3){
-      $scope.score--;
-      hintLength[type]++;
-      $scope.hint[type] = $scope.currentUser()[type+"Name"].substring(0, hintLength[type]);
-    } else {
+  $scope.useHint = function(hintType) {
+    var hintKey = hintType+"Hint";
+    var nameKey = hintType+"Name";
+    var c = currentUser();
+    if($scope.nameParts[hintType]){
+      flash("no hint for a known name!", "Flash--info", "icon-info-circle")
+    } else if(c[nameKey].length <= c[hintKey].length && c[hintKey].length <= 2){
       flash("no more hints!", "Flash--error", "icon-exclamation-triangle");
+    } else if(c[hintKey].length <= 2){
+      $scope.score--;
+      c[hintKey] = c[nameKey].substring(0, c[hintKey].length + 1)
+    } else {
+      flash("3 hints per name!", "Flash--error", "icon-exclamation-triangle");
     }
   }
 
@@ -131,10 +125,10 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
   }
 
   var unbindNameMatcher = $scope.$watch("nameMatcher", function(newValue, oldValue) {
-    if(angular.lowercase(newValue) == angular.lowercase($scope.currentUser().firstName)){
+    if(angular.lowercase(newValue) == angular.lowercase(currentUser().firstName)){
       foundName("first");
     }
-    if(angular.lowercase(newValue) == angular.lowercase($scope.currentUser().lastName)){
+    if(angular.lowercase(newValue) == angular.lowercase(currentUser().lastName)){
       foundName("last");
     }
   });

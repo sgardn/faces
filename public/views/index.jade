@@ -41,7 +41,6 @@ head
                 span.hint-text(ng-class="{correct: nameParts.first}")
                   | First name:&nbsp;
                   span.hint-text.hint-text--hinted(ng-show='!nameParts.first')
-                    | {{hint.first}}
                     | {{peopleLeft[index].firstHint}}
                   span.hint-text.hint-text--correct(ng-show='nameParts.first')
                     | {{peopleLeft[index].firstName}}
@@ -49,7 +48,6 @@ head
                 span.hint-text(ng-class="{correct: nameParts.last}")
                   | Last name:&nbsp;
                   span.hint-text.hint-text--hinted(ng-show='!nameParts.last')
-                    | {{hint.last}}
                     | {{peopleLeft[index].lastHint}}
                   span.hint-text.hint-text--correct(ng-show='nameParts.last')
                     | {{peopleLeft[index].lastName}}
