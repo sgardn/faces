@@ -31,8 +31,6 @@ head
               span.score
                 | Score:
                 | {{score}}
-              p(ng-show='!peopleLeft.length')
-                | Game won!
             .mdl-card.mdl-shadow--4dp.guess-card(ng-show="peopleLeft.length")
               //- .mdl-card__media.mdl-card--expand
               .mdl-card__title.mdl-card--expand
@@ -44,6 +42,7 @@ head
                   | First name:&nbsp;
                   span.hint-text.hint-text--hinted(ng-show='!nameParts.first')
                     | {{hint.first}}
+                    | {{peopleLeft[index].firstHint}}
                   span.hint-text.hint-text--correct(ng-show='nameParts.first')
                     | {{peopleLeft[index].firstName}}
                 br
@@ -51,6 +50,7 @@ head
                   | Last name:&nbsp;
                   span.hint-text.hint-text--hinted(ng-show='!nameParts.last')
                     | {{hint.last}}
+                    | {{peopleLeft[index].lastHint}}
                   span.hint-text.hint-text--correct(ng-show='nameParts.last')
                     | {{peopleLeft[index].lastName}}
               .mdl-card__actions.mdl-card--border
@@ -60,14 +60,18 @@ head
                   | Last name hint
                 button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='skip()')
                   | Skip
+                br
+                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='cheat()')
+                  | Cheat
 
             div(ng-show='peopleLeft.length')
               .mdl-textfield.mdl-js-textfield.guess-textfield
                 input.mdl-textfield__input(ng-model='nameMatcher', type='text' id='guess')
                 label.mdl-textfield__label(for='guess')
                   | Enter your guess
-
-            h5
+            h5(ng-show='!peopleLeft.length')
+              | Game won!
+            h5(ng-show='peopleLeft.length')
               | Completed
             .completed-names
               .completed-names__name(ng-repeat='person in finished')

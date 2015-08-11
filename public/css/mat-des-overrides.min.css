@@ -1,0 +1,30 @@
+.u-text-center{text-align:left}
+.guess-card.mdl-card{min-width:400px;width:100%;height:344px;background:#607d8b;opacity:1;-webkit-transition:.6s ease-in-out all;transition:.6s ease-in-out all}
+.guess-card.mdl-card.ng-hide{opacity:.1;height:250px}
+.guess-card.mdl-card>.mdl-card__actions{border-color:rgba(255,255,255,.2)}
+.guess-card.mdl-card>.mdl-card__actions>.mdl-button,.guess-card.mdl-card>.mdl-card__supporting-text,.guess-card.mdl-card>.mdl-card__title{color:#fff}
+.guess-card.mdl-card .mdl-card__title img{margin:0 auto}
+.mdl-button{margin:5px}
+input:focus{outline-offset:0}
+#game{margin-top:1rem}
+.status{-webkit-transition:all ease-in-out .5s;transition:all ease-in-out .5s;opacity:1}
+.status.ng-hide{opacity:0}
+.status.ng-hide-remove{opacity:1}
+.status.ng-hide-remove-active{opacity:0}
+.ng-hide-add,.ng-hide-remove{display:block!important}
+.hint-text{font-size:17px;line-height:22px;text-transform:uppercase}
+.hint-text.hint-text--hinted{text-transform:lowercase}
+.hint-text.hint-text--correct{text-transform:capitalize}
+.completed-names .completed-names__name span.how-many-0,.completed-names .completed-names__name span.how-many-1,.completed-names .completed-names__name span.how-many-2,.completed-names .completed-names__name span.how-many-3{color:green}
+.completed-names .completed-names__name span.how-many-4,.completed-names .completed-names__name span.how-many-5,.completed-names .completed-names__name span.how-many-6{color:red}
+.Flash{position:absolute;z-index:10;padding:12px;border-radius:4px;left:50%;margin-left:-110px;width:220px;opacity:.8;bottom:100px;-webkit-transition:.3s ease-in-out all;transition:.3s ease-in-out all}
+.Flash.ng-hide{bottom:-50px;opacity:0}
+.Flash .icon,.Flash span{text-transform:uppercase;color:#fff;margin:0}
+.Flash span{margin-left:5px}
+.Flash.Flash--error{background-color:#FF9800}
+.Flash.Flash--info{background-color:#03A9F4}
+.Flash.Flash--success{background-color:#8BC34A}
+.guess-textfield .mdl-textfield__label::after{top:24px}
+.completed-names__name.ng-enter,.completed-names__name.ng-leave,.completed-names__name.ng-move{-webkit-transition:all ease-in-out .5s;transition:all ease-in-out .5s}
+.completed-names__name.ng-enter,.completed-names__name.ng-leave.ng-leave-active,.completed-names__name.ng-move{opacity:0;max-height:0}
+.completed-names__name.ng-enter.ng-enter-active,.completed-names__name.ng-leave,.completed-names__name.ng-move.ng-move-active{opacity:1;max-height:40px}

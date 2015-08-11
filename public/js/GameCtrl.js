@@ -1,11 +1,11 @@
 angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout) {
 
   $scope.peopleLeft = [
-           { firstName : "Thomas", lastName : "Anderson", pictureUrl : "images/neo.gif" },
-           { firstName : "The", lastName : "Trinity", pictureUrl : "images/trinity.gif" },
-           { firstName : "Mr", lastName : "Cypher", pictureUrl : "images/cypher.gif" },
-           { firstName : "Lord", lastName : "Morpheus", pictureUrl : "images/morpheus.gif" },
-           // { firstName : "Agent", lastName : "Smith", pictureUrl : "images/agent\ smith.gif" }
+           { firstName : "Thomas", lastName : "Anderson", pictureUrl : "images/neo.gif", firstHint : "", lastHint : "" },
+           // { firstName : "The", lastName : "Trinity", pictureUrl : "images/trinity.gif", firstHint : "", lastHint : ""  },
+           // { firstName : "Mr", lastName : "Cypher", pictureUrl : "images/cypher.gif", firstHint : "", lastHint : ""  },
+           // { firstName : "Lord", lastName : "Morpheus", pictureUrl : "images/morpheus.gif", firstHint : "", lastHint : ""  },
+           // { firstName : "Agent", lastName : "Smith", pictureUrl : "images/agent\ smith.gif", firstHint : "", lastHint : ""  }
          ];
 
   $scope.finished = [];
@@ -28,8 +28,8 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 
   function clearData() {
     $scope.nameMatcher = "";
-    $scope.hint.first = $scope.hint.last = "?";
-    hintLength.first = hintLength.last = 0;
+    // $scope.hint.first = $scope.hint.last = "?";
+    // hintLength.first = hintLength.last = 0;
     $scope.nameParts.first = $scope.nameParts.last = false;
   }
 
@@ -67,6 +67,11 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
   }
 
   $scope.index = nextIndex();
+
+  $scope.cheat = function() {
+    $scope.score += 5;
+    nextUser();
+  }
 
   $scope.skip = function() {
     var next = nextIndex();
