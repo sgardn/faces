@@ -48,10 +48,6 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
         return newVal;
       }
     }
-    // TODO -- DO WE NEED THIS?
-    // else {
-    //   return -1;
-    // }
   }
 
   $scope.index = nextIndex();
@@ -63,7 +59,6 @@ angular.module('GameCtrl', []).controller('GameCtrl', function($scope, $timeout)
 
   $scope.skip = function() {
     var next = nextIndex();
-    // last person!
     if(next !== $scope.index){
       $scope.index = next;
       clearData();

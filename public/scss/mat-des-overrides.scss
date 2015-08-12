@@ -12,7 +12,7 @@ $flash-blue: #03A9F4;
 
 // card
 .guess-card.mdl-card {
-  min-width: 400px;
+  min-width: 380px;
   width: 100%;
   // height: 344px;
   height: 384px;
@@ -33,7 +33,6 @@ $flash-blue: #03A9F4;
     color: #fff;
   }
   .mdl-card__title img {
-
     margin: auto;
     margin-top: 0;
     margin-bottom: 0;
@@ -46,29 +45,6 @@ $flash-blue: #03A9F4;
 
 input:focus{
   outline-offset: 0;
-}
-
-
-#game {
-  margin-top: 1rem;
-}
-
-.status {
-  -webkit-transition:all ease-in-out 0.5s;
-  transition:all ease-in-out 0.5s;
-  opacity: 1;
-  &.ng-hide {
-    opacity: 0;
-  }
-  // &.ng-hide-add {
-  //   opacity: 1;
-  // }
-  &.ng-hide-remove {
-    opacity: 1;
-  }
-  &.ng-hide-remove-active {
-    opacity: 0;
-  }
 }
 
 .ng-hide-add, .ng-hide-remove {
@@ -138,7 +114,7 @@ input:focus{
   }
 }
 
-
+// underline is broken...?
 .guess-textfield {
   .mdl-textfield__label {
     &::after {
