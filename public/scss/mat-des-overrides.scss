@@ -3,33 +3,52 @@ $flash-green: #8BC34A;
 $flash-orange: #FF9800;
 $flash-blue: #03A9F4;
 
-// utility
-.u-text-center {
-  // text-align: center;
-  text-align: left;
-
-}
-
-// card
-.guess-card.mdl-card {
+.guess-card-container {
+  position: relative;
+  perspective: 800px;
   min-width: 380px;
   width: 100%;
-  // height: 344px;
-  height: 384px;
-  background: #607d8b;
+  min-height: 414px;
+}
 
-  opacity: 1;
+.guess-card__face {
+    margin: 0;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-color: #607d8b;
+  }
+  .guess-card__face.guess-card--front {
+  }
+  .guess-card__face.guess-card--back {
+    transform: rotateY(180deg);
+  }
+
+.guess-card {
+  background-color: #607d8b;
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  &.flipped {
+    transform: rotateY(180deg);
+  }
+
+  // opacity: 1;
   -webkit-transition: 0.6s ease-in-out all;
   transition: 0.6s ease-in-out all;
-  &.ng-hide {
-    opacity: 0.1;
-    height: 200px;
-  }
+  // &.ng-hide {
+  //   opacity: 0.1;
+  //   height: 200px;
+  // }
 
-  & > .mdl-card__actions {
+  .mdl-card__actions {
     border-color: rgba(255, 255, 255, 0.2);
   }
-  & > .mdl-card__title, & > .mdl-card__supporting-text, & > .mdl-card__actions > .mdl-button {
+  .mdl-card__title, .mdl-card__supporting-text, .mdl-card__actions > .mdl-button {
     color: #fff;
   }
   .mdl-card__title img {

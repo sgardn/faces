@@ -1,9 +1,12 @@
-.u-text-center{text-align:left}
-.guess-card.mdl-card{min-width:380px;width:100%;height:384px;background:#607d8b;opacity:1;-webkit-transition:.6s ease-in-out all;transition:.6s ease-in-out all}
-.guess-card.mdl-card.ng-hide{opacity:.1;height:200px}
-.guess-card.mdl-card>.mdl-card__actions{border-color:rgba(255,255,255,.2)}
-.guess-card.mdl-card>.mdl-card__actions>.mdl-button,.guess-card.mdl-card>.mdl-card__supporting-text,.guess-card.mdl-card>.mdl-card__title{color:#fff}
-.guess-card.mdl-card .mdl-card__title img{margin:0 auto}
+.guess-card,.guess-card__face{position:absolute;background-color:#607d8b}
+.guess-card-container{position:relative;perspective:800px;min-width:380px;width:100%;min-height:414px}
+.guess-card__face{margin:0;display:block;width:100%;height:100%;backface-visibility:hidden}
+.guess-card__face.guess-card--back{transform:rotateY(180deg)}
+.guess-card{overflow:visible;width:100%;height:100%;transform-style:preserve-3d;-webkit-transition:.6s ease-in-out all;transition:.6s ease-in-out all}
+.guess-card.flipped{transform:rotateY(180deg)}
+.guess-card .mdl-card__actions{border-color:rgba(255,255,255,.2)}
+.guess-card .mdl-card__actions>.mdl-button,.guess-card .mdl-card__supporting-text,.guess-card .mdl-card__title{color:#fff}
+.guess-card .mdl-card__title img{margin:0 auto}
 .mdl-button{margin:5px}
 input:focus{outline-offset:0}
 .ng-hide-add,.ng-hide-remove{display:block!important}
