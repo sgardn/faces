@@ -1,0 +1,9 @@
+I think we should
+https://desandro.github.io/3dtransforms/docs/card-flip.html
+
+for some reason, angular content doesn't render until the transition has completed...
+
+make it fade in after it completes?
+
+
+and then, figure out way to alternate between "even" and "odd" sides of the card

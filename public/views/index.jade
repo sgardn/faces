@@ -26,30 +26,30 @@ head
         .row
           .col-sm-6.col-sm-offset-3
             header
-              h3
+              h4
                 | Faces to Guess!
-              span.score
+              h6
                 | Score:
                 | {{score}}
-            .guess-card-container(ng-init="flipped = false")
-              .mdl-card.mdl-shadow--4dp.guess-card(ng-show="peopleLeft.length" ng-class="{flipped: flipped}")
+            .guess-card-container(ng-show="peopleLeft.length")
+              .mdl-card.mdl-shadow--4dp.guess-card(ng-class="{flipped: flipped}")
                 .guess-card__face.guess-card--front
                   .mdl-card__title.mdl-card--expand
-                    img(ng-src='{{peopleLeft[index].pictureUrl}}', alt='', style='max-width:350px')
+                    img(ng-src='{{frontUser.pictureUrl}}', alt='', style='max-width:350px')
                   .mdl-card__supporting-text
                     span.hint-text(ng-class="{correct: nameParts.first}")
                       | First name:&nbsp;
                       span.hint-text.hint-text--hinted(ng-show='!nameParts.first')
-                        | {{peopleLeft[index].firstHint}}
+                        | {{frontUser.firstHint}}
                       span.hint-text.hint-text--correct(ng-show='nameParts.first')
-                        | {{peopleLeft[index].firstName}}
+                        | {{frontUser.firstName}}
                     br
                     span.hint-text(ng-class="{correct: nameParts.last}")
                       | Last name:&nbsp;
                       span.hint-text.hint-text--hinted(ng-show='!nameParts.last')
-                        | {{peopleLeft[index].lastHint}}
+                        | {{frontUser.lastHint}}
                       span.hint-text.hint-text--correct(ng-show='nameParts.last')
-                        | {{peopleLeft[index].lastName}}
+                        | {{frontUser.lastName}}
                   .mdl-card__actions.mdl-card--border
                     button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click="useHint('first')")
                       | First name hint
@@ -63,34 +63,34 @@ head
                     button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='flipped = !flipped')
                       | Flip
                 .guess-card__face.guess-card--back
-                  //- .mdl-card__title.mdl-card--expand
-                  //-   img(ng-src='{{peopleLeft[index].pictureUrl}}', alt='', style='max-width:350px')
-                  //- .mdl-card__supporting-text
-                  //-   span.hint-text(ng-class="{correct: nameParts.first}")
-                  //-     | First name:&nbsp;
-                  //-     span.hint-text.hint-text--hinted(ng-show='!nameParts.first')
-                  //-       | {{peopleLeft[index].firstHint}}
-                  //-     span.hint-text.hint-text--correct(ng-show='nameParts.first')
-                  //-       | {{peopleLeft[index].firstName}}
-                  //-   br
-                  //-   span.hint-text(ng-class="{correct: nameParts.last}")
-                  //-     | Last name:&nbsp;
-                  //-     span.hint-text.hint-text--hinted(ng-show='!nameParts.last')
-                  //-       | {{peopleLeft[index].lastHint}}
-                  //-     span.hint-text.hint-text--correct(ng-show='nameParts.last')
-                  //-       | {{peopleLeft[index].lastName}}
-                  //- .mdl-card__actions.mdl-card--border
-                  //-   button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click="useHint('first')")
-                  //-     | First name hint
-                  //-   button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click="useHint('last')")
-                  //-     | Last name hint
-                  //-   button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='skip()')
-                  //-     | Skip
-                  //-   br
-                  //-   button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='cheat()')
-                  //-     | Cheat
-                  button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='flipped = !flipped')
-                    | Flip
+                  .mdl-card__title.mdl-card--expand
+                    img(ng-src='{{backUser.pictureUrl}}', alt='', style='max-width:350px')
+                  .mdl-card__supporting-text
+                    span.hint-text(ng-class="{correct: nameParts.first}")
+                      | First name:&nbsp;
+                      span.hint-text.hint-text--hinted(ng-show='!nameParts.first')
+                        | {{backUser.firstHint}}
+                      span.hint-text.hint-text--correct(ng-show='nameParts.first')
+                        | {{backUser.firstName}}
+                    br
+                    span.hint-text(ng-class="{correct: nameParts.last}")
+                      | Last name:&nbsp;
+                      span.hint-text.hint-text--hinted(ng-show='!nameParts.last')
+                        | {{backUser.lastHint}}
+                      span.hint-text.hint-text--correct(ng-show='nameParts.last')
+                        | {{backUser.lastName}}
+                  .mdl-card__actions.mdl-card--border
+                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click="useHint('first')")
+                      | First name hint
+                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click="useHint('last')")
+                      | Last name hint
+                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='skip()')
+                      | Skip
+                    br
+                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='cheat()')
+                      | Cheat
+                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent(ng-click='flipped = !flipped')
+                      | Flip
 
             div(ng-show='peopleLeft.length')
               .mdl-textfield.mdl-js-textfield.guess-textfield
